@@ -46,14 +46,13 @@ app.MapPost("/todoitems", async (TodoItemDTO todo, TodoDb db) =>
     var todoToAdd = new Todo
     {
         Name = todo.Name,
-        IsComplete = todo.IsComplete,
-        Id = todo.Id,
+        IsComplete = todo.IsComplete
     };
 
-    db.Todos.Add(todoToAdd);
+    var updatedTodo = db.Todos.Add(todoToAdd);
     await db.SaveChangesAsync();
 
-    return Results.Created($"/todoitems/{todo.Id}", todo);
+    return Results.Created($"/todoitems/{updatedTodo.Entity.Id}", updatedTodo.Entity);
 });
 
 app.MapPut("/todoitems/{id}", async (int id, Todo inputTodo, TodoDb db) =>
