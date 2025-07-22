@@ -7,12 +7,8 @@ namespace TodoApi.Models;
 /// Todo model
 /// A model is a class that represents data that the app manages.
 /// </summary>
-public class Todo
+public class Todo : BaseEntity
 {
-    [Required]
-    public int Id { get; set; }
-    [Required]
-    public string? Name { get; set; }
     public bool IsComplete { get; set; }
 }
 

@@ -42,7 +42,6 @@ app.MapGet("/todoitems/{id}", async (int id, TodoDb db) =>
 
 app.MapPost("/todoitems", async (TodoItemDTO todo, TodoDb db) =>
 {
-    // TODO: when back in class on Tuesday - lets work on the ID property
     var todoToAdd = new Todo
     {
         Name = todo.Name,
