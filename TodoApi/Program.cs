@@ -42,14 +42,12 @@ app.MapGet("/todoitems/{id}", async (int id, TodoDb db) =>
 
 app.MapPost("/todoitems", async (TodoItemDTO todo, TodoDb db) =>
 {
-    var todoToAdd = new Todo
-    {
-        Name = todo.Name,
-        IsComplete = todo.IsComplete
-    };
+    var todoToAdd = new Todo(todo);
 
     var updatedTodo = db.Todos.Add(todoToAdd);
     await db.SaveChangesAsync();
+
+    updatedTodo.Entity.LogDetailsToConsole();
 
     return Results.Created($"/todoitems/{updatedTodo.Entity.Id}", updatedTodo.Entity);
 });
@@ -60,7 +58,7 @@ app.MapPut("/todoitems/{id}", async (int id, Todo inputTodo, TodoDb db) =>
 
     if (todo is null) return Results.NotFound();
 
-    todo.Name = inputTodo.Name;
+    todo.TodoName = inputTodo.TodoName;
     todo.IsComplete = inputTodo.IsComplete;
 
     await db.SaveChangesAsync();
@@ -79,5 +77,15 @@ app.MapDelete("/todoitems/{id}", async (int id, TodoDb db) =>
 
     return Results.NotFound();
 });
+
+TodoList list = new();
+SuperUser super = new();
+Console.WriteLine("super user: " + super.Type);
+AdminUser admin = new();
+Console.WriteLine("admin user: " + admin.Type);
+GuestUser guest = new();
+Console.WriteLine("guest user: " + guest.Type);
+Todo todo = new();
+//BaseEntity entity = new();
 
 app.Run();

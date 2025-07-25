@@ -8,5 +8,5 @@ public class TodoItemDTO
 
     public TodoItemDTO() { }
     public TodoItemDTO(Todo todoItem) =>
-    (Name, IsComplete) = (todoItem.Name, todoItem.IsComplete);
+    (Name, IsComplete) = (todoItem.TodoName, todoItem.IsComplete);
 }
